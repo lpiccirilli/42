@@ -1,31 +1,41 @@
-NAME = ./libftprintf.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/06 13:25:39 by lpicciri          #+#    #+#              #
+#    Updated: 2023/02/20 19:42:07 by lpicciri         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-SRC = ./ft_printf.c \
-./funcion.c \
-./more_funcion.c \
+NAME = libftprintf.a
 
-OBJS = $(SRC:.c=.o)
+SRC = ft_printf.c \
+ft_funcion.c \
+ft_more_funcion.c
 
-HDRS = ./ft_printf.h
+OBJS = ${SRC:.c=.o}
 
 RM = rm -f
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc
 
-.c.o = ${CC} -I ${HDRS} includes -c $< -o ${<:.c=.o}
+FLAGS = -Wall -Wextra -Werror
+
+%.c.o:
+	${CC} ${FLAGS} -g -c $< -o ${<:.c=.o}
 
 $(NAME): ${OBJS}
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+	ar rcs ${NAME} ${OBJS}
 
-all: $(NAME)
+all: ${NAME}
 
 clean:
 	${RM} $(OBJS)
 
 fclean: clean
-	${RM} $(NAME) ${OBJS}
+	${RM} ${NAME}
 
-re: $(NAME)
-
-.PHONY: all clean fclean re
+re: fclean all
