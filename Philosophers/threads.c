@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/12 17:26:29 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:58:51 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,35 @@ void	eat(t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *) arg;
+	data = philo->data;
 	philo->eaten = 0;
+	pthread_create(&philo->monitor_id, NULL, &monitor, data);
 	while(philo->dead == false && philo->eaten != philo->data->n_eat)
 	{
 		eat(philo);
+	}
+	pthread_join(philo->monitor_id, NULL);
+	return (NULL);
+}
+void	*monitor(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *) arg;
+	i = -1;
+	while (1)
+	{
+		while (++i < data->n_philo)
+		{
+			pthread_mutex_lock(&data->lock);
+			if (data->philo[i].eaten >= 1 && (get_time() - data->philo[i].last_eat) > data->t_die)
+				printf("dead");
+			pthread_mutex_unlock(&data->lock);
+		}
 	}
 	return (NULL);
 }
