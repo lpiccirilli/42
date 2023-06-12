@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:46:57 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/07 19:44:53 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:21:04 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ struct	s_data;
 
 typedef struct s_philo
 {
-	int				id;
 	struct s_data	*data;
+	int				id;
 	int				eaten;
+	int				eating;
 	u_int64_t		last_eat;
 	u_int64_t		t_die;
-	int				eating;
+	bool			dead;
+	pthread_t		monitor_id;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	lock;
@@ -43,10 +45,9 @@ typedef struct s_data
 	u_int64_t			t_sleep;
 	u_int64_t			start_time;
 	int					n_eat;
-	bool				dead;
-	bool				finish;
+	int					dead;
+	int					finished;
 	pthread_t			*thread_id;
-	pthread_t			monitor_id;
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		lock;
@@ -65,6 +66,6 @@ void		eat(t_philo *philo);
 int			ft_usleep(useconds_t time);
 u_int64_t	get_time(void);
 void		messages(char *str, t_philo *philo);
-void		*monitor(void *data);
+void		*monitor(void *void_data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/07 19:59:49 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:03:55 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_data(t_data *data, char **argv)
 		data->n_eat = ft_atoi(argv[5]);
 	else
 		data->n_eat = -1;
-	data->finish = false;
 	pthread_mutex_init(&data->lock, NULL);
 	return (0);
 }
@@ -67,12 +66,12 @@ int	init_philo_data(t_data *data)
 	while (i < data->n_philo)
 	{
 		data->philo[i].data = data;
-		printf("%d\n", data->philo[i].data->n_philo);
 		data->philo[i].id = i + 1;
 		data->philo[i].eaten = 0;
-		data->philo[i].eating = 0;
 		data->philo[i].t_die = data->t_die;
-		pthread_mutex_init(&data->philo[i].lock, NULL);
+		data->philo[i].dead = false;
+		if (pthread_mutex_init(&data->philo[i].lock, NULL))
+			return(-1);
 		i++;
 	}
 	return (0);
@@ -84,8 +83,11 @@ int	init(t_data *data, char **argv)
 		return (-1);
 	if (alloc (data) == -1)
 		return (-1);
-	init_philo_data (data);
+	if (init_philo_data (data))
+		return (-1);
 	if (init_forks (data) == -1)
+		return (-1);
+	if (init_threads(data) == -1)
 		return (-1);
 	return (0);
 }

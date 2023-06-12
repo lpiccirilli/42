@@ -6,29 +6,28 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/07 19:58:11 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:26:29 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*monitor(void *void_data)
+void	eat(t_philo *philo)
 {
-	t_data		*data;
-	int			i;
-
-	data = (t_data *) void_data;
-	while (data->dead == false)
-	{
-		i = -1;
-		printf("%d\n", data->n_philo);
-		while (++i < data->n_philo)
-		{
-			printf("%d\n", i);
-			ft_usleep(1000);
-		}
-	}
-	return(NULL);
+	pthread_mutex_lock(philo->l_fork);
+	messages("has taken a fork", philo);
+	pthread_mutex_lock(philo->r_fork);
+	messages("has taken a fork", philo);
+	pthread_mutex_lock(&philo->lock);
+	philo->eaten++;
+	messages("is eating", philo);
+	ft_usleep(philo->data->t_eat);
+	philo->last_eat = get_time();
+	pthread_mutex_unlock(&philo->lock);
+	pthread_mutex_unlock(philo->r_fork);
+	pthread_mutex_unlock(philo->l_fork);
+	messages("is sleeping", philo);
+	ft_usleep(philo->data->t_sleep);
 }
 
 void	*routine(void *arg)
@@ -37,7 +36,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *) arg;
 	philo->eaten = 0;
-	while(philo->eaten != philo->data->n_eat)
+	while(philo->dead == false && philo->eaten != philo->data->n_eat)
 	{
 		eat(philo);
 	}
@@ -50,16 +49,10 @@ int	init_threads(t_data *data)
 
 	i = -1;
 	data->start_time = get_time();
-	pthread_create(&data->monitor_id, NULL, &monitor, &data);
 	while (++i < data->n_philo)
-	{
-		if (pthread_create(&data->thread_id[i], NULL, &routine, &data->philo[i])
-			!= 0)
-			return (-1);
-	}
+		pthread_create(&data->thread_id[i], NULL, &routine, &data->philo[i]);
 	i = -1;
 	while (++i < data->n_philo)
 		pthread_join(data->thread_id[i], NULL);
-	pthread_join(data->monitor_id, NULL);
 	return (0);
 }
