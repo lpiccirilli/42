@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/16 17:58:36 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:11:57 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ void	*monitor(void *arg)
 	philo = (t_philo *) arg;
 	while (philo->dead == false)
 	{
+		pthread_mutex_lock(&philo->lock);
 		if (get_time() - philo->last_eat > philo->t_die)
 			{
 				printf("%llu\n", get_time() - philo->last_eat);
 				philo->dead = true;
 			}
 		i++;
+		pthread_mutex_unlock(&philo->lock);
 	}
 	return(NULL);
 }
@@ -70,9 +72,6 @@ int	init_threads(t_data *data)
 	data->start_time = get_time();
 	while (++i < data->n_philo)
 		pthread_create(&data->monitor_id[i], NULL, &monitor, &data->philo[i]);
-	i = -1;
-	while (++i < data->n_philo)
-		pthread_join(data->monitor_id[i], NULL);
 	i = -1;
 	while (++i < data->n_philo)
 		pthread_create(&data->thread_id[i], NULL, &routine, &data->philo[i]);
