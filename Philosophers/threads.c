@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/14 19:08:41 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:58:36 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,34 @@
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	messages("has taken a fork", philo);
+	printf("%llu %d has taken a fork\n", get_time() - philo->data->start_time, philo->id);
 	pthread_mutex_lock(philo->r_fork);
-	messages("has taken a fork", philo);
+	printf("%llu %d has taken a fork\n", get_time() - philo->data->start_time, philo->id);
 	pthread_mutex_lock(&philo->lock);
 	philo->eaten++;
-	messages("is eating", philo);
+	printf("%llu %d is eating\n", get_time() - philo->data->start_time, philo->id);
 	ft_usleep(philo->data->t_eat);
 	philo->last_eat = get_time();
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
-	messages("is sleeping", philo);
+	printf("%llu %d is sleeping\n", get_time() - philo->data->start_time, philo->id);
 	ft_usleep(philo->data->t_sleep);
 }
 
 void	*monitor(void *arg)
 {
-	t_data	*data;
+	t_philo	*philo;
 	int		i;
 
 	i = 0;
-	data = (t_data *) arg;
-	printf("monitor\n");
-	while (data->dead == 0)
+	philo = (t_philo *) arg;
+	while (philo->dead == false)
 	{
-		if (get_time() - data->philo[i].last_eat > data->t_die)
+		if (get_time() - philo->last_eat > philo->t_die)
 			{
-				messages("died", &data->philo[i]);
-				data->dead = 1;
+				printf("%llu\n", get_time() - philo->last_eat);
+				philo->dead = true;
 			}
 		i++;
 	}
@@ -69,8 +68,12 @@ int	init_threads(t_data *data)
 
 	i = -1;
 	data->start_time = get_time();
-	pthread_create(&data->monitor_id, NULL, &monitor, data);
-	pthread_join(data->monitor_id, NULL);
+	while (++i < data->n_philo)
+		pthread_create(&data->monitor_id[i], NULL, &monitor, &data->philo[i]);
+	i = -1;
+	while (++i < data->n_philo)
+		pthread_join(data->monitor_id[i], NULL);
+	i = -1;
 	while (++i < data->n_philo)
 		pthread_create(&data->thread_id[i], NULL, &routine, &data->philo[i]);
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/14 19:00:59 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:57:15 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	init_data(t_data *data, char **argv)
 		data->n_eat = ft_atoi(argv[5]);
 	else
 		data->n_eat = -1;
-	data->dead = 0;
 	pthread_mutex_init(&data->lock, NULL);
 	return (0);
 }
@@ -37,6 +36,9 @@ int	alloc(t_data *data)
 		return (-1);
 	data->philo = malloc(sizeof(t_philo) * data->n_philo);
 	if (!data->philo)
+		return (-1);
+	data->monitor_id = malloc(sizeof(pthread_t) * data->n_philo);
+	if (!data->monitor_id)
 		return (-1);
 	return (0);
 }

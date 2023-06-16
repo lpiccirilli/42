@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:46:57 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/14 18:59:29 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:55:03 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,12 @@ typedef struct s_data
 	u_int64_t			t_sleep;
 	u_int64_t			start_time;
 	int					n_eat;
-	int					dead;
 	int					finished;
 	pthread_t			*thread_id;
-	pthread_t			monitor_id;
+	pthread_t			*monitor_id;
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		lock;
-	pthread_mutex_t		unlock;
-	pthread_mutex_t		write;
 }	t_data;
 
 int			check_args(int argc, char **argv);
@@ -65,7 +62,6 @@ int			alloc(t_data *data);
 void		eat(t_philo *philo);
 int			ft_usleep(useconds_t time);
 u_int64_t	get_time(void);
-void		messages(char *str, t_philo *philo);
 void		*monitor(void *void_data);
 
 #endif

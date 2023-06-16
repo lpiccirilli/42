@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 17:09:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/12 17:00:07 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:43:08 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,4 @@ u_int64_t	get_time(void)
 	if (gettimeofday(&tv, NULL))
 		return (-1);
 	return ((tv.tv_sec * (u_int64_t)1000) + (tv.tv_usec / 1000));
-}
-
-void	messages(char *str, t_philo *philo)
-{
-	u_int64_t	time;
-
-	pthread_mutex_lock(&philo->data->lock);
-	time = get_time() - philo->data->start_time;
-	printf("%llu %d %s\n", time, philo->id, str);
-	pthread_mutex_unlock(&philo->data->lock);
 }
