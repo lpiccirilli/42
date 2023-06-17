@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:46:57 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/17 12:35:58 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:23:53 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_philo
 	int				eating;
 	u_int64_t		last_eat;
 	u_int64_t		t_die;
-	bool			dead;
 	pthread_t		monitor_id;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
@@ -43,6 +42,7 @@ typedef struct s_data
 	u_int64_t			t_eat;
 	u_int64_t			t_sleep;
 	u_int64_t			start_time;
+	bool				dead;
 	int					n_eat;
 	int					finished;
 	pthread_t			*thread_id;
@@ -51,6 +51,9 @@ typedef struct s_data
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		lock;
 }	t_data;
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 int			check_args(int argc, char **argv);
 bool		is_in_strings(char c, char *str);

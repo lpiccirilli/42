@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/17 12:45:40 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:24:28 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	init_data(t_data *data, char **argv)
 	data->t_die = (uint64_t)ft_atoi(argv[2]);
 	data->t_eat = (uint64_t)ft_atoi(argv[3]);
 	data->t_sleep = (uint64_t)ft_atoi(argv[4]);
+	data->dead = false;
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
 	else
@@ -69,7 +70,6 @@ int	init_philo_data(t_data *data)
 		data->philo[i].id = i + 1;
 		data->philo[i].eaten = 0;
 		data->philo[i].t_die = data->t_die;
-		data->philo[i].dead = false;
 		data->philo[i].last_eat = get_time();
 		i++;
 	}
