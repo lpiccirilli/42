@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/16 17:57:15 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/17 12:45:40 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ int	alloc(t_data *data)
 		return (-1);
 	data->philo = malloc(sizeof(t_philo) * data->n_philo);
 	if (!data->philo)
-		return (-1);
-	data->monitor_id = malloc(sizeof(pthread_t) * data->n_philo);
-	if (!data->monitor_id)
 		return (-1);
 	return (0);
 }
@@ -74,8 +71,6 @@ int	init_philo_data(t_data *data)
 		data->philo[i].t_die = data->t_die;
 		data->philo[i].dead = false;
 		data->philo[i].last_eat = get_time();
-		if (pthread_mutex_init(&data->philo[i].lock, NULL))
-			return(-1);
 		i++;
 	}
 	return (0);
@@ -87,7 +82,7 @@ int	init(t_data *data, char **argv)
 		return (-1);
 	if (alloc (data) == -1)
 		return (-1);
-	if (init_philo_data (data))
+	if (init_philo_data (data) == -1)
 		return (-1);
 	if (init_forks (data) == -1)
 		return (-1);
