@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:18:45 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:45:47 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
-	printf("%llu %d has taken a fork\n", get_time() - philo->data->start_time, philo->id);
-	pthread_mutex_lock(philo->r_fork);
-	printf("%llu %d has taken a fork\n", get_time() - philo->data->start_time, philo->id);
+	messages("has taken a fork", philo);
 	pthread_mutex_lock(&philo->eat_lock);
+	messages("has taken a fork", philo);
 	philo->eating = 1;
-	printf("%llu %d is eating\n", get_time() - philo->data->start_time, philo->id);
+	messages("is eating", philo);
 	philo->last_eat = get_time();
 	philo->eaten++;
 	ft_usleep(philo->data->t_eat);
@@ -28,7 +27,7 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->eat_lock);
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
-	printf("%llu %d is sleeping\n", get_time() - philo->data->start_time, philo->id);
+	messages("is sleeping", philo);
 	ft_usleep(philo->data->t_sleep);
 }
 
@@ -40,18 +39,16 @@ void	*monitor(void *args)
 	while (philo->data->finished == 0)
 	{
 		pthread_mutex_lock(&philo->eat_lock);
-		if ((get_time() - philo->last_eat) >= philo->t_die
-			&& philo->eating == 0)
-			printf(ANSI_COLOR_RED "%llu %d has died\n" ANSI_COLOR_RESET,
-				get_time() - philo->data->start_time, philo->id);
-		if (philo->eaten == philo->data->n_eat)
+		if ((get_time() - philo->last_eat) >= philo->t_die && philo->eating == 0)
+			messages("died", philo);
+		if (philo->eaten == philo->data->n_eat && philo->data->finished == 0)
 		{
 			pthread_mutex_lock(&philo->data->lock);
 			philo->data->enough++;
 			philo->eaten++;
 			pthread_mutex_unlock(&philo->data->lock);
 		}
-		if (philo->data->enough == philo->data->n_philo)
+		if (philo->data->enough == philo->data->n_philo && philo->data->finished == 0)
 		{
 			pthread_mutex_lock(&philo->data->lock);
 			philo->data->finished = 1;
@@ -71,7 +68,7 @@ void	*routine(void *arg)
 	while(philo->data->finished == 0)
 	{
 		eat(philo);
-		printf("%llu %d is thinking\n", get_time() - philo->data->start_time, philo->id);
+		messages("is thinking", philo);
 	}
 	pthread_join(philo->monitor_id, NULL);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:50:34 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:20:43 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:46:36 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	free_data(t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(&data->lock);
+	pthread_mutex_destroy(&data->write);
 	if (data->thread_id)
 		free(data->thread_id);
 	if (data->philo)

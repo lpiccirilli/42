@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:46:57 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:15:37 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:44:13 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 	t_philo				*philo;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		lock;
+	pthread_mutex_t		write;
 }	t_data;
 
 #define ANSI_COLOR_RED     "\x1b[31m"
@@ -69,5 +70,7 @@ int			ft_usleep(useconds_t time);
 u_int64_t	get_time(void);
 void		*monitor(void *void_data);
 void		free_data(t_data *data);
+void		messages(char *str, t_philo *philo);
+int			ft_strcmp(char *s1, char *s2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:24:22 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:42:30 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	init_data(t_data *data, char **argv)
 	data->t_die = (uint64_t)ft_atoi(argv[2]);
 	data->t_eat = (uint64_t)ft_atoi(argv[3]);
 	data->t_sleep = (uint64_t)ft_atoi(argv[4]);
-	data->dead = false;
 	data->finished = 0;
 	data->enough = 0;
 	if (argv[5])
@@ -26,6 +25,7 @@ int	init_data(t_data *data, char **argv)
 	else
 		data->n_eat = -1;
 	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->write, NULL);
 	return (0);
 }
 
