@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:46:57 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:44:13 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:02:16 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int			alloc(t_data *data);
 void		eat(t_philo *philo);
 int			ft_usleep(useconds_t time);
 u_int64_t	get_time(void);
+void		*routine(void *arg);
 void		*monitor(void *void_data);
 void		free_data(t_data *data);
 void		messages(char *str, t_philo *philo);
 int			ft_strcmp(char *s1, char *s2);
+int			case_one(t_data *data);
 
 #endif

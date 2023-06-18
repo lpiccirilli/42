@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 15:06:12 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:45:47 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:08:53 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->l_fork);
 	messages("has taken a fork", philo);
-	pthread_mutex_lock(&philo->eat_lock);
+	pthread_mutex_lock(philo->r_fork);
 	messages("has taken a fork", philo);
+	pthread_mutex_lock(&philo->eat_lock);
 	philo->eating = 1;
 	messages("is eating", philo);
 	philo->last_eat = get_time();

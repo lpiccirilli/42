@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/18 16:42:30 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:07:54 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int	init(t_data *data, char **argv)
 		return (-1);
 	if (init_forks (data) == -1)
 		return (-1);
+	if (data->n_philo == 1)
+		return (case_one(data));
+	printf("sono qui\n");
 	if (init_threads(data) == -1)
 		return (-1);
 	free_data(data);
