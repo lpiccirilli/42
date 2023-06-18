@@ -6,7 +6,7 @@
 /*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 17:35:15 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/06/17 16:24:28 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:24:22 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	init_data(t_data *data, char **argv)
 	data->t_eat = (uint64_t)ft_atoi(argv[3]);
 	data->t_sleep = (uint64_t)ft_atoi(argv[4]);
 	data->dead = false;
+	data->finished = 0;
+	data->enough = 0;
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
 	else
@@ -71,6 +73,9 @@ int	init_philo_data(t_data *data)
 		data->philo[i].eaten = 0;
 		data->philo[i].t_die = data->t_die;
 		data->philo[i].last_eat = get_time();
+		data->philo[i].eating = 0;
+		if(pthread_mutex_init(&data->philo[i].eat_lock, NULL))
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -88,5 +93,6 @@ int	init(t_data *data, char **argv)
 		return (-1);
 	if (init_threads(data) == -1)
 		return (-1);
+	free_data(data);
 	return (0);
 }
