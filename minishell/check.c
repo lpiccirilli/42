@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:23:13 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/07/11 16:59:58 by lpicciri         ###   ########.fr       */
+/*   Updated: 2023/07/11 23:49:39 by lpicciri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char *first_word(char *str)
 {
     int i;
     char *word;
-    
+
     i = 0;
     while (*str == ' ' || *str == '\t')
         str++;
@@ -27,7 +27,7 @@ char *first_word(char *str)
         {
             i++;
             str++;
-        } 
+        }
     }
     str = str -  i;
     word = (char *)malloc((sizeof(char) * i) + 1);
@@ -35,24 +35,25 @@ char *first_word(char *str)
     while (ft_isalpha(*(str + i)) == 1)
     {
         *(word + i) = *(str + i);
-        i++;        
+        i++;
     }
     return (word);
 }
 
 void first_word_check(char * word)
 {
-    if (access(word, F_OK) == 0)
+	char *path = getenv("PATH");
+
+	if (access(word, X_OK) == 0)
         printf("COMANDO TROVATO\n");
-    else if (access(word, F_OK) == -1)
+    else if (access(word, X_OK) == -1)
         printf("COMANDO NON TROVATO\n");
 }
 
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av)
 {
 
     (void)ac;
-    (void)envp;
     printf("%s\n", first_word(av[1]));
     first_word_check(first_word(av[1]));
 }
