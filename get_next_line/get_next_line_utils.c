@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 21:00:34 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/28 17:53:03 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 19:44:35 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	while (s[i])
 	{
 		if (i >= start && j < len)
-		str[j++] = s[i];
-	i++;
+			str[j++] = s[i];
+		i++;
 	}
 	str[j] = '\0';
 	return (str);
