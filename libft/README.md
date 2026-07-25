@@ -1,5 +1,5 @@
 
-# Project Title
+# Libft
 
 This is the first project of the 42 coding school. `Libft` is a static library that reimplements some functions from the standard library and other utilities meant to be useful in the next projects.
 
