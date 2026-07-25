@@ -43,10 +43,10 @@ preprocessor just substitutes the already defined value, printing the value of t
 ## Tests
 
 I included a simple main file to test the function. Running the test without 
-parameters lets you write to standard input; pressing enter after each line 
-will make the program output the line it read, to demonstrate it read 
-correctly. Passing a path to a file will redirect `get_next_line` to read 
-from the file, outputting its content to standard output.
+parameters lets you write to the standard input; pressing enter after each line 
+will make the program output the line it read, to demonstrate it is
+correct. Passing a path to a file will redirect the program to read 
+from that file, outputting its content to standard output.
 
 ```bash
     gcc -Wall -Wextra -Werror -D BUFFER_SIZE=1024 get_next_line.c get_next_line_utils.c main.c -o gnl_test
