@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   funcion.c                                          :+:      :+:    :+:   */
+/*   ft_bases_utilities.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:39:26 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/03 08:59:18 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 21:55:42 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putchar(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
 
 int	check_base(char *base)
 {
@@ -79,24 +73,12 @@ int	ft_putstr(char *s)
 	int	i;
 
 	i = 0;
+	if (!s)
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
 	while (s[i] != '\0')
 		ft_putchar(s[i++]);
 	return (i);
-}
-
-int	ft_putnbr(long long nb)
-{
-	long long	nbr;
-
-	if (nb < 0)
-	{
-		ft_putchar('-');
-		nbr = nb * -1;
-	}
-	else
-		nbr = nb;
-	if (nbr >= 10)
-		ft_putnbr(nbr / 10);
-	ft_putchar(nbr % 10 + 48);
-	return (ft_countnbr(nb, "0123456789"));
 }

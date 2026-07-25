@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_more_funcion.c                                  :+:      :+:    :+:   */
+/*   ft_ptr_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:43:19 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/20 20:21:00 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 21:56:01 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
 
 void	ft_put_ptr(unsigned long long p)
 {
@@ -58,7 +48,7 @@ int	ft_print_ptr(unsigned long long p)
 	len = 0;
 	if (p == 0)
 	{
-		len += ft_putstr("0x0");
+		len += ft_putstr("(nil)");
 		return (len);
 	}
 	len += ft_putstr("0x");
@@ -67,16 +57,26 @@ int	ft_print_ptr(unsigned long long p)
 	return (len);
 }
 
-int	ft_printunsigned(unsigned int unsnbr)
+int	ft_convertion_ptr(void *p)
 {
-	int	len;
+	uintptr_t	address;
 
-	len = 0;
-	if (unsnbr == 0)
+	write(1, "0x", 2);
+	if (!p)
 	{
 		write(1, "0", 1);
 		return (1);
 	}
-	len += ft_putnbr(unsnbr);
-	return (len);
+	else
+	{
+		address = (uintptr_t)p;
+		return (ft_putnbr_base ((long long)address, "0123456789abcdef"));
+	}
+	return (0);
+}
+
+int	ft_putchar(int c)
+{
+	write(1, &c, 1);
+	return (1);
 }

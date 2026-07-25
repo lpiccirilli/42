@@ -3,47 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 10:40:05 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/20 20:20:06 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 22:11:51 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putnbr(long int nbr)
+size_t	ft_strlen(const char *s)
 {
-	long long int	n;
-	int				len;
+	size_t	i;
 
-	n = nbr;
-	len = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		len += ft_putchar('-');
-	}
-	if (n >= 10)
-	{
-		len += ft_putnbr(n / 10);
-	}
-	len += ft_putchar((n % 10) + 48);
-	return (len);
-}
-
-int	ft_printnbr(int nbr)
-{
-	int	len;
-
-	len = 0;
-	if (nbr == 0)
-	{
-		write(1, "0", 1);
-		return (1);
-	}
-	len += ft_putnbr(nbr);
-	return (len);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
 
 int	ft_control(va_list *args, char format)

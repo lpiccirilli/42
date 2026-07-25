@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_funcion.c                                       :+:      :+:    :+:   */
+/*   ft_hex_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 11:39:26 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/20 20:06:59 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 21:43:00 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putchar(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-	{
-		ft_putstr("(null)");
-		return (6);
-	}
-	while (s[i] != '\0')
-		ft_putchar(s[i++]);
-	return (i);
-}
 
 int	ft_lenhex(unsigned int nbr)
 {

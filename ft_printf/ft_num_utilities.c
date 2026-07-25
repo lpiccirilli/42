@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   more_funcion.c                                     :+:      :+:    :+:   */
+/*   ft_num_utilities.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 18:43:19 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/03 08:59:22 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 21:55:32 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_convertion_ptr(void *p)
-{
-	uintptr_t	address;
-
-	write(1, "0x", 2);
-	if (!p)
-	{
-		write(1, "0", 1);
-		return (1);
-	}
-	else
-	{
-		address = (uintptr_t)p;
-		return (ft_putnbr_base ((long long)address, "0123456789abcdef"));
-	}
-	return (0);
-}
 
 int	ft_countnbr(long long nb, char *base)
 {
@@ -58,4 +30,49 @@ int	ft_countnbr(long long nb, char *base)
 		counter++;
 	}
 	return (counter);
+}
+
+int	ft_printnbr(int nbr)
+{
+	int	len;
+
+	len = 0;
+	if (nbr == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+	len += ft_putnbr(nbr);
+	return (len);
+}
+
+int	ft_printunsigned(unsigned int unsnbr)
+{
+	int	len;
+
+	len = 0;
+	if (unsnbr == 0)
+	{
+		write(1, "0", 1);
+		return (1);
+	}
+	len += ft_putnbr(unsnbr);
+	return (len);
+}
+
+int	ft_putnbr(long long nb)
+{
+	long long	nbr;
+
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nbr = nb * -1;
+	}
+	else
+		nbr = nb;
+	if (nbr >= 10)
+		ft_putnbr(nbr / 10);
+	ft_putchar(nbr % 10 + 48);
+	return (ft_countnbr(nb, "0123456789"));
 }
