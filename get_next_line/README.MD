@@ -46,7 +46,7 @@ I included a simple main file to test the function. Running the test without
 parameters lets you write to the standard input; pressing enter after each line 
 will make the program output the line it read, to demonstrate it is
 correct. Passing a path to a file will redirect the program to read 
-from that file, outputting its content to standard output.
+from that file, outputting its content to the standard output.
 
 ```bash
     gcc -Wall -Wextra -Werror -D BUFFER_SIZE=1024 get_next_line.c get_next_line_utils.c main.c -o gnl_test
