@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 17:39:16 by luca              #+#    #+#             */
-/*   Updated: 2023/01/31 15:37:11 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 15:29:13 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	num = (long int)n;
 	len = ft_counter(n);
 	i = len - 1;
-	string = malloc(sizeof(char) * len + 1);
+	string = ft_calloc(sizeof(char), len + 1);
 	if (!string)
 		return (NULL);
 	string[len] = '\0';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 18:03:34 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/02/19 17:55:16 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/25 15:24:15 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	ft_counter(const char *s, char c)
 
 	i = 0;
 	count = 0;
-	while (s[i] == c)
+	while (s[i] == c && s[i] != '\0')
 		i++;
 	while (s[i])
 	{

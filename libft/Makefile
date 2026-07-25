@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+         #
+#    By: luca <luca@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/20 13:58:39 by lpicciri          #+#    #+#              #
-#    Updated: 2023/01/27 18:16:12 by lpicciri         ###   ########.fr        #
+#    Updated: 2026/07/25 15:43:37 by luca             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,8 @@ ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c \
 ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
 ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 
-BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-ft_lstadd_back.c ft_lstdelone.c ft_lstiter.c ft_lstmap.c ft_lstclear.c\
 
 OBJS = ${SRCS:.c=.o}
-
-OBJSBONUS = ${BONUS:.c=.o}
 
 CC = gcc
 RM = rm -f
@@ -37,13 +33,10 @@ FLAGS = -Wall -Wextra -Werror
 $(NAME): ${OBJS}
 		ar rcs ${NAME} ${OBJS}
 
-bonus: ${OBJSBONUS}
-		ar rcs ${NAME} ${OBJSBONUS}
-
 all: ${NAME}
 
 clean:
-		${RM} ${OBJS} ${OBJSBONUS}
+		${RM} ${OBJS}
 
 fclean: clean
 		${RM} ${NAME}

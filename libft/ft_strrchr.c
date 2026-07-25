@@ -20,9 +20,9 @@ char	*ft_strrchr(const char *s, int c)
 	null = s;
 	i = ft_strlen(s);
 	s = (s + i);
-	while (*s != *null && c != *s)
+	while (*s != *null && (char)c != *s)
 		s--;
-	if (c == *s)
+	if ((char)c == *s)
 		return ((char *)s);
 	return (0);
 }

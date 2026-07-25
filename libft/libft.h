@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 void				ft_bzero(void *str, size_t n);
 void				ft_putchar_fd(char c, int fd);
