@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 12:28:28 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/05/17 17:48:11 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/26 19:18:14 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <signal.h>
 # include <unistd.h>
+# include <sys/types.h>
 
 void	print_pid(pid_t pid);
 int		ft_putnbr(long int nbr);

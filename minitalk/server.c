@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpicciri <lpicciri@student.42roma.it>      +#+  +:+       +#+        */
+/*   By: luca <luca@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 16:41:36 by lpicciri          #+#    #+#             */
-/*   Updated: 2023/05/18 12:34:46 by lpicciri         ###   ########.fr       */
+/*   Updated: 2026/07/26 21:59:30 by luca             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,23 +46,24 @@ void	print_pid(pid_t pid)
 
 void	ft_signal(int signal)
 {
-	static int	bit;
-	static int	i;
+	static int				bit;
+	static unsigned char	c;
 
 	if (signal == SIGUSR1)
-		i |= (0x01 << bit);
+		c |= (0x01 << bit);
 	bit++;
 	if (bit == 8)
 	{
-		write(1, &i, 1);
+		write(1, &c, 1);
 		bit = 0;
-		i = 0;
+		c = 0;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	int					pid;
+	struct sigaction	sa;
 
 	(void) argv;
 	if (argc != 1)
@@ -72,11 +73,12 @@ int	main(int argc, char **argv)
 	}
 	pid = getpid();
 	print_pid(pid);
-	while (argc == 1)
-	{
-		signal (SIGUSR1, ft_signal);
-		signal (SIGUSR2, ft_signal);
-		pause ();
-	}
+	sa.sa_handler = ft_signal;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1)
+		pause();
 	return (0);
 }
